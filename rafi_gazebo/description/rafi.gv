@@ -1,0 +1,17 @@
+digraph G {
+node [shape=box];
+"Chasis" [label="Chasis"];
+"Rueda1" [label="Rueda1"];
+"Rueda2" [label="Rueda2"];
+"Rueda3" [label="Rueda3"];
+"Rueda4" [label="Rueda4"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"Chasis" -> "Rueda1joint" [label="xyz: 0.5 -0.5 -0.25 \nrpy: 0 -0 0"]
+"Rueda1joint" -> "Rueda1"
+"Chasis" -> "Rueda2joint" [label="xyz: 0.5 -0.5 0.25 \nrpy: 0 -0 0"]
+"Rueda2joint" -> "Rueda2"
+"Chasis" -> "Rueda3joint" [label="xyz: -0.5 -0.5 -0.25 \nrpy: 0 -0 0"]
+"Rueda3joint" -> "Rueda3"
+"Chasis" -> "Rueda4joint" [label="xyz: -0.5 -0.5 0.25 \nrpy: 0 -0 0"]
+"Rueda4joint" -> "Rueda4"
+}

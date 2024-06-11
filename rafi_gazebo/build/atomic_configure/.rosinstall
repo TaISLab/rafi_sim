@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/mario/catkin_ws/src/rafi_gazebo/build/devel/setup.sh

@@ -1,0 +1,256 @@
+<robot name="rafi">
+
+
+    <link name="dummy">
+    </link>
+    <joint name="dummyjoint" type="fixed">
+
+        <parent link="dummy"/>
+        <child link="Chasis"/>
+        
+
+    </joint>
+
+
+
+    <link name="Chasis" >
+
+        <visual>
+
+            <geometry>
+
+                <box size="0.65 0.5 0.27"/>
+
+            </geometry>    
+
+        </visual> 
+        <collision>
+
+            <geometry>
+
+                <box size="0.65 0.5 0.27"/>
+
+            </geometry>
+
+        </collision>
+        <inertial>
+
+            <mass value="1.0"/>
+            <origin xyz="0 0 0"/>
+            <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+
+        </inertial> 
+        <origin xyz="0 0 0.375" rpy="0 0 0"/>  
+
+    </link>    
+    <link name="Rueda1" > 
+
+    <visual>
+
+        <geometry>
+
+            <cylinder radius="0.1" length="0.08"/>
+
+        </geometry>
+        <origin xyz="0 0 0" rpy="1.57075 0 0" />
+
+    </visual>
+    <collision>
+
+        <geometry>
+
+            <cylinder radius="0.1" length="0.08"/>
+
+        </geometry>
+        <origin xyz="0 0 0" rpy="1.57075 0 0" />
+
+
+    </collision>
+    <inertial>
+
+        <mass value="0.1"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    
+    </inertial>
+    
+
+    </link>   
+    <link name="Rueda2" >
+
+    <visual>
+
+        <geometry>
+
+            <cylinder radius="0.1" length="0.08"/>
+
+        </geometry>
+        <origin xyz="0 0 0" rpy="1.57075 0 0" />
+
+    </visual>
+    <collision>
+
+        <geometry>
+
+            <cylinder radius="0.1" length="0.08"/>
+
+        </geometry>
+        <origin xyz="0 0 0" rpy="1.57075 0 0" />
+
+
+    </collision>
+    <inertial>
+
+        <mass value="0.1"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    
+    </inertial>
+    
+
+    </link>
+    <link name="Rueda3" > 
+
+    <visual>
+
+        <geometry>
+
+            <cylinder radius="0.1" length="0.08"/>
+
+        </geometry>
+        <origin xyz="0 0 0" rpy="1.57075 0 0" />
+
+    </visual>
+    <collision>
+
+        <geometry>
+
+            <cylinder radius="0.1" length="0.08"/>
+
+        </geometry>
+        <origin xyz="0 0 0" rpy="1.57075 0 0" />
+
+
+    </collision>
+    <inertial>
+
+        <mass value="0.1"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    
+    </inertial>
+   
+
+    </link>
+    <link name="Rueda4" >
+
+    <visual>
+
+        <geometry>
+
+            <cylinder radius="0.1" length="0.08"/>
+
+        </geometry>
+        <origin xyz="0 0 0" rpy="1.57075 0 0" />
+
+    </visual>
+    <collision>
+
+        <geometry>
+
+            <cylinder radius="0.1" length="0.08"/>
+
+        </geometry>
+        <origin xyz="0 0 0" rpy="1.57075 0 0" />
+
+
+    </collision>
+    <inertial>
+
+        <mass value="0.1"/>
+        <origin xyz="0 0 0"/>
+        <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+    
+    </inertial>
+   
+
+    </link>
+
+    <link name="Plancha" >
+
+        <visual>
+
+            <geometry>
+
+                <box size="0.65 0.5 0.01"/>
+
+            </geometry>    
+
+        </visual> 
+        <collision>
+
+            <geometry>
+
+                <box size="0.65 0.5 0.01"/>
+
+            </geometry>
+
+        </collision>
+        <inertial>
+
+            <mass value="1.0"/>
+            <origin xyz="0 0 0"/>
+            <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+
+        </inertial>   
+
+    </link>   
+    
+    <joint name="Rueda1Chasis" type="continuous">
+        <parent link="Chasis" />
+        <child link="Rueda1" />
+        <origin xyz="0.225 -0.21 -0.29" rpy="0 0 0" />
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <joint name="Rueda2Chasis" type="continuous">
+        <parent link="Chasis" />
+        <child link="Rueda2" />
+        <origin xyz="0.225 0.21 -0.29" rpy="0 0 0" />
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <joint name="Rueda3Chasis" type="continuous">
+        <parent link="Chasis" />
+        <child link="Rueda3" />
+        <origin xyz="-0.225 -0.21 -0.29" rpy="0 0 0" />
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <joint name="Rueda4Chasis" type="continuous">
+        <parent link="Chasis" />
+        <child link="Rueda4" />
+        <origin xyz="-0.225 0.21 -0.29" rpy="0 0 0" />
+        <axis xyz="0 1 0"/>
+    </joint>
+
+    <joint name="Plancha2base" type="fixed">
+
+        <parent link="Chasis" />
+        <child link="Plancha" />
+        <origin xyz="0 0 -0.175" rpy="0 0 0"/>
+
+    </joint>
+
+
+    <gazebo>
+        <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+          <commandTopic>cmd_vel</commandTopic>
+          <odometryTopic>odom</odometryTopic>
+          <odometryFrame>dummy</odometryFrame>
+          <odometryRate>20.0</odometryRate>
+          <robotBaseFrame>Chasis</robotBaseFrame>
+        </plugin>
+      </gazebo>
+
+</robot>

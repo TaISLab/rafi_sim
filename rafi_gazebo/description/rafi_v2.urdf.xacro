@@ -1,0 +1,167 @@
+<robot name="rafi" xmlns:xacro="http://wiki.ros.org/xacro">
+
+
+  <xacro:include filename="$(find franka_description)/robots/common/franka_robot.xacro"/>
+
+
+
+    <link name="dummy">
+    </link>
+    <joint name="dummyjoint" type="fixed">
+
+        <parent link="dummy"/>
+        <child link="Chasis"/>
+        <origin xyz="0 0 0.355" rpy="0 0 0"/>
+
+    </joint>
+
+
+
+    <link name="Chasis" >
+
+        <visual>
+
+            <geometry>
+
+                <box size="0.65 0.5 0.27"/>
+
+            </geometry>    
+
+        </visual> 
+        <collision>
+
+            <geometry>
+
+                <box size="0.65 0.5 0.27"/>
+
+            </geometry>
+
+        </collision>
+        <inertial>
+
+            <mass value="20.0"/>
+            <origin xyz="0 0 0"/>
+            <inertia ixx="1.2385" ixy="0.0" ixz="0.0" iyy="0.80725" iyz="0.0" izz="1.68125"/>
+
+        </inertial> 
+        <origin xyz="0 0 0.375" rpy="0 0 0"/>  
+
+    </link>    
+     
+    <link name="Rueda1">
+        <visual>
+          <geometry>
+            <mesh filename="package://rafi_gazebo/meshes/RAFI_v4_prueba2.stl" />
+          </geometry>
+        </visual>
+        <collision>
+          <geometry>
+            <box size="0.65 0.28 0.5"/>
+          </geometry>
+        </collision>
+        <inertial>
+          <mass value="40.0"/>
+          <origin xyz="0 0 0"/>
+          <inertia ixx="1.2385" ixy="0.0" ixz="0.0" iyy="0.80725" iyz="0.0" izz="1.68125"/>
+        </inertial>
+      </link>
+
+      <link name="controladora">
+        <visual>
+          <geometry>
+            <mesh filename="package://rafi_gazebo/meshes/controladora_v2.stl" />
+          </geometry>
+        </visual>
+        <collision>
+          <geometry>
+            <box size="0.65 0.5 0.24"/>
+          </geometry>
+        </collision>
+        <inertial>
+          <mass value="25.0"/>
+          <origin xyz="0 0 0"/>
+          <inertia ixx="0.41" ixy="0.0" ixz="0.0" iyy="0.269" iyz="0.0" izz="0.56"/>
+        </inertial>
+      </link>
+
+      
+  <!-- Name for this robot -->
+  <xacro:arg name="arm_id" default="panda" />
+
+  <!-- Should a franka_gripper be mounted at the flange?" -->
+  <xacro:arg name="hand" default="true" />
+  <!-- Positional offset between $(arm_id)_hand -> $(arm_id)_hand_tcp [m]. Only used when hand:=true -->
+  <xacro:arg name="tcp_xyz" default="0 0 0.1034" />
+  <!-- Rotational offset between $(arm_id)_hand -> $(arm_id)_hand_tcp [rad]. Only used when hand:=true -->
+  <xacro:arg name="tcp_rpy" default="0 0 0" />
+
+  <!-- Is the robot being simulated in gazebo?" -->
+  <xacro:arg name="gazebo" default="true" />
+  <!-- If `gazebo` arg is set, to which frame shall $(arm_id)_link0 be parented. Empty string for not fixing at all -->
+  <xacro:arg name="parent" default="Chasis" />
+  <!-- If `gazebo` arg is set and `parent` not empty, what position offset between `parent` & $(arm_id)_link0 -->
+  <xacro:arg name="xyz" default="0.25 0 0.135" />
+  <!-- If `gazebo` arg is set and `parent` not empty, what rotation offset between `parent` & $(arm_id)_link0 -->
+  <xacro:arg name="rpy" default="0 0 0" />
+
+  <xacro:franka_robot arm_id="$(arg arm_id)"
+                      joint_limits="${xacro.load_yaml('$(find franka_description)/robots/panda/joint_limits.yaml')}"
+                      hand="$(arg hand)"
+                      tcp_xyz="$(arg tcp_xyz)"
+                      tcp_rpy="$(arg tcp_rpy)"
+                      gazebo="$(arg gazebo)"
+                      parent="$(arg parent)"
+                      xyz="$(arg xyz)"
+                      rpy="$(arg rpy)">
+  </xacro:franka_robot>
+
+      <joint name="ruedas_chasis" type="fixed">
+        <parent link="Chasis"/>
+        <child link="Rueda1"/>
+        <origin xyz="0 0 -0.22" rpy="1.5708 0 0"/>
+        
+      </joint>
+
+      <joint name="cont_chasis" type="fixed">
+        <parent link="Chasis"/>
+        <child link="controladora"/>
+        <origin xyz="0.05 -0.24 0.135" rpy="1.5708 0 3.1416"/>
+        
+      </joint>
+
+
+    <!--<gazebo>
+        <plugin name="object_controller" filename="libgazebo_ros_planar_move.so">
+          <commandTopic>cmd_vel</commandTopic>
+          <odometryTopic>odom</odometryTopic>
+          <odometryFrame>dummy</odometryFrame>
+          <odometryRate>0</odometryRate>
+          <robotBaseFrame>Chasis</robotBaseFrame>
+          <yaw_velocity_gain>2.0</yaw_velocity_gain>
+          <x_velocity_gain>5.0</x_velocity_gain>
+          <y_velocity_gain>5.0</y_velocity_gain>
+        </plugin>
+      </gazebo>-->
+
+      <gazebo>
+        <plugin name="force_based_move" filename="libgazebo_ros_force_based_move.so">
+          <robotNamespace>Rafi</robotNamespace>
+          <commandTopic>cmd_vel</commandTopic>
+          <linkName>Chasis</linkName>
+          <frameId>Chasis</frameId>
+          <maxForce>100</maxForce>
+          <maxTorque>100</maxTorque>
+          <odometryTopic>odom</odometryTopic>
+          <odometryFrame>dummy</odometryFrame>
+          <robotBaseFrame>Chasis</robotBaseFrame>
+          <odometryRate>20.0</odometryRate>
+          <yaw_velocity_p_gain>0.0</yaw_velocity_p_gain>
+          <x_velocity_p_gain>0.0</x_velocity_p_gain>
+          <y_velocity_p_gain>0.0</y_velocity_p_gain>
+        </plugin>
+      </gazebo>
+
+      
+
+     
+</robot>
