@@ -1,0 +1,19 @@
+<launch>
+  <!-- Lanzar Gazebo -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="worlds/empty.world"/>
+    <arg name="verbose" value="true"/>
+  </include>
+
+  <!-- Spawnear el modelo del robot -->
+  <node name="spawn_robot" pkg="gazebo_ros" type="spawn_model" args="-file $(find rafi_gazebo)/description/rafi_v1.urdf -urdf -x 0 -y 0 -z 0.65 -model rafi" respawn="false" output="screen"/>
+
+
+  <param name="robot_description" textfile="$(find rafi_gazebo)/description/rafi_v1.urdf" />
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" output="screen"/>
+  <node name="joint_state_publisher" type="joint_state_publisher" pkg="joint_state_publisher">
+    <param name="rate" value="30"/>
+  </node>
+
+  <node pkg="rviz" type="rviz" output="screen" name="rviz" args="-f dummy -d $(find rafi_gazebo)/rviz/test.rviz"/>
+</launch>

@@ -1,0 +1,7 @@
+<robot name="rafi" xmlns:xacro="http://wiki.ros.org/xacro">
+
+<xacro:include filename="$(find rafi_gazebo)/description/base.urdf.xacro"/>
+
+<xacro:RAFI_base/>
+
+</robot>
